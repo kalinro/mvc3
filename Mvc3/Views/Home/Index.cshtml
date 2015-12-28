@@ -1,13 +1,33 @@
 ﻿<!DOCTYPE html>
-<html ng-app>
+<html data-ng-app="demoAppMod">
 <head>
-    <title ng-bind="helloAngular"></title>
+    <title>tytuł</title>
 </head>
 <body>
 
-    <input type="text" ng-model="helloAngular" />
-    <h1>{{helloAngular}}</h1>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+
+    <div data-ng-controller="SimpleController">
+        
+        <input type="text" ng-model="name" />
+        
+        <ul>
+            <li data-ng-repeat="cust in customers"> {{cust.name}} </li>
+        </ul>
+    </div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+<script>
+    var demoApp = angular.module('demoAppMod',[]);
+    function SimpleController($scope) {
+        $scope.customers = [{ name: 'wicek', city: 'warszawa' },
+                            { name: 'franek', city: 'warszawa' },
+                            { name: 'walek', city: 'krakow' }];
+    }
+
+    demoApp.controller('SimpleController', SimpleController);
+
+</script>    
+
 </body>
 </html>
