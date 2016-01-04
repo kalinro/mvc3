@@ -15,6 +15,10 @@ namespace Mvc3.Controllers
             return View();
         }
 
+        public ActionResult Home()
+        {
+            return PartialView();
+        }
         //public ActionResult About()
         //{
         //    ViewBag.Message = "Your app description page.";

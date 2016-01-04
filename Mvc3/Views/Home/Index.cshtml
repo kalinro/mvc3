@@ -1,31 +1,61 @@
 ﻿<!DOCTYPE html>
 <html data-ng-app="demoAppMod">
 <head>
-    <title>tytuł</title>
+    <title>tytułIndex</title>
 </head>
 <body>
-
-
-
-    <div data-ng-controller="SimpleController">
+    <!-- PlaceHolder for Views -->
+    <div ng-view>
         
-        <input type="text" ng-model="name" />
-        
-        <ul>
-            <li data-ng-repeat="cust in customers"> {{cust.name}} </li>
-        </ul>
     </div>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
 <script>
-    var demoApp = angular.module('demoAppMod',[]);
+    var demoApp = angular.module('demoAppMod', []);
+
+    alert(" zaczynam rutowanie :)");
+    
+
+    demoApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider){
+        $routeProvider.when(
+                                '/view2',
+                                { controller: 'SimpleController', templateUrl: 'Views/Home/view2' }
+                           )
+                      .when(
+                                'Home/view2',
+                                { controller: 'SimpleController', templateUrl: 'Views/Home/view2' }
+                                )
+                      .otherVise({ redirectTo: 'Views/Home/view2' });
+    }])
+
+    alert(" koniec rutowanie :)");
+
     function SimpleController($scope) {
         $scope.customers = [{ name: 'wicek', city: 'warszawa' },
                             { name: 'franek', city: 'warszawa' },
                             { name: 'walek', city: 'krakow' }];
+
+        $scope.addCustomer = function () {
+            $scope.customers.push({
+                name: $scope.NewCustomer.name,
+                city: $scope.NewCustomer.city,
+            })
+        };
     }
 
     demoApp.controller('SimpleController', SimpleController);
+
+    demoApp.config(function ($routeProvider) {
+        $routeProvider.when(
+                                '/',
+                                { controller: 'SimpleController', templateUrl: 'Views/Home/view2.html' }
+                           )
+                      .when(
+                                'Home/view1',
+                                { controller: 'SimpleController', templateUrl: 'Views/Home/view1.html' }
+                                )
+                      .otherVise({ redirectTo: '/' });
+        })
 
 </script>    
 
